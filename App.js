@@ -3,11 +3,11 @@ import { Router, Scene, Actions } from 'react-native-router-flux';
 import { StyleSheet } from 'react-native';
 import Login from './src/components/Login';
 import Produtos from './src/components/Produtos';
-import Buscar from './src/components/Buscar';
 import Detalhe from './src/components/Detalhe';
 import Novo from './src/components/Novo';
 import Configuracoes from './src/components/Configuracoes';
 import { View, Image, BackHandler } from 'react-native';
+import firebase from 'firebase';
 import { YellowBox } from 'react-native';
 YellowBox.ignoreWarnings(['Warning: isMounted(...) is deprecated', 'Module RCTImageLoader']);
 
@@ -31,6 +31,19 @@ const TabIcon = ({ selected, title }) => {
 }
 
 export default class App extends Component {
+
+  componentWillMount() {
+    var config = {
+      apiKey: "AIzaSyCmOwvQqz1hnpvuzt-mBlXehLHHI8Xbung",
+      authDomain: "rnproject-c03ac.firebaseapp.com",
+      databaseURL: "https://rnproject-c03ac.firebaseio.com",
+      projectId: "rnproject-c03ac",
+      storageBucket: "rnproject-c03ac.appspot.com",
+      messagingSenderId: "485466818006"
+    };
+    firebase.initializeApp(config);
+  }
+
   render() {
     return (
       <Router
@@ -67,9 +80,6 @@ export default class App extends Component {
               />
               <Scene key='detalhe' component={Detalhe} title='Detalhe' />
               <Scene key='novo' component={Novo} title='Novo Produto' />
-            </Scene>
-            <Scene key="no" title="Buscar" icon={TabIcon}>
-              <Scene key='notas' component={Buscar} title='Buscar' />
             </Scene>
             <Scene key="co" title="Configurações" icon={TabIcon}>
               <Scene key='configuracoes' component={Configuracoes} title='Configurações' />

@@ -5,8 +5,30 @@ import {
     Button,
     TextInput,
 } from 'react-native';
+import firebase from 'firebase';
+import { Actions } from 'react-native-router-flux';
 
 export default class Novo extends Component {
+
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            nome: "",
+            valor: ""
+        }
+    }
+
+    salvarItem() {
+       // alert(this.state.nome);
+        var nome = this.state.nome;
+        var valor = this.state.valor;
+
+        var produtos = firebase.database().ref('produtos'); 
+        produtos.push().set({ nome, valor });
+
+        Actions.pop(); 
+    }
 
     render() {
         return (
@@ -14,22 +36,24 @@ export default class Novo extends Component {
                 <View style={styles.viewInput}>
                     <TextInput
                         style={styles.input}
-                        onChangeText={(nome) => (false)}
+                        onChangeText={(nome) => this.setState({nome})}
+                        value={this.state.nome}
                         placeholder='Nome'
                         placeholderTextColor='#D0D0D0'
                     />
                     <TextInput
                         style={styles.input}
-                        onChangeText={(valor) => (false)}
-                        secureTextEntry={true}
+                        onChangeText={(valor) => this.setState({valor})}
+                        value={this.state.valor}
                         placeholder='Valor'
+                        keyboardType='numeric'
                         placeholderTextColor='#D0D0D0'
                     />
 
                 </View>
                 <View style={styles.viewButton}>
                     <Button
-                        onPress={() => false}
+                        onPress={() => this.salvarItem()}
                         title="Cadastrar"
                         color="#1D5DA7"
                         accessibilityLabel="Cadastrar Produto"

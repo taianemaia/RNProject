@@ -1,14 +1,18 @@
 import React, { Component } from 'react';
 import {
     StyleSheet,
-    Text
+    Text, 
+    View
 } from 'react-native';
 
 export default class Detalhe extends Component {
 
     render() {
         return (
-            <Text style={styles.texto}>teste</Text>
+            <View>
+                <Text style={styles.texto}>Produto: {this.props.nome}</Text>
+                <Text style={styles.texto}>Valor: {this.props.valor}</Text>
+            </View>
         )
 
     }

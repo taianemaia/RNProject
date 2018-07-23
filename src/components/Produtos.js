@@ -6,28 +6,33 @@ import {
     View
 } from 'react-native';
 import Produto from './Produto';
+import firebase from 'firebase';
+import { YellowBox } from 'react-native';
+YellowBox.ignoreWarnings(['Warning: Each child in an array or iterator should have a unique "key" prop.', 'Module RCTImageLoader']);
+YellowBox.ignoreWarnings(['Warning: Each child in an array or iterator should have a unique "key" prop.', 'Module RCTImageLoader']);
 
 export default class Produtos extends Component {
 
     constructor(props) {
         super(props);
         this.state = { listaProdutos: [], animating: false }
+        var listaProdutos = []; 
+        
+        var produtos = firebase.database().ref('produtos');
+        produtos.on('child_added', (data) => {
+            listaProdutos.push(data.val());
+            this.setState({ listaProdutos });
+        });
     }
 
     render() {
         if (!this.state.animating) {
             return (
                 <ScrollView style={styles.container}>
-                    <Produto />
-                    <Produto />
-                    <Produto />
-                    <Produto />
-                    <Produto />
-                    <Produto />
-                    <Produto />
-                    <Produto />
-                    <Produto />
-                    <Produto />
+                    {
+                        this.state.listaProdutos.map((produto) => 
+                        <Produto key={produto.key} nome={produto.nome} valor={produto.valor} />)
+                    }
                 </ScrollView>
             )
         } else {

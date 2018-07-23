@@ -13,11 +13,11 @@ export default class Produto extends Component {
     render() {
 
         var icone = require('../img/product.png');
-
+        
 
         return (
             <TouchableHighlight
-                onPress={() => Actions.detalhe()}
+                onPress={() => Actions.detalhe({nome: this.props.nome, valor: this.props.valor})}
                 activeOpacity={0.1}
                 underlayColor='#1D5DA7'
             >
@@ -26,9 +26,8 @@ export default class Produto extends Component {
                         <Image style={{ height: 40, width: 40 }} source={icone} />
                     </View>
                     <View style={styles.viewTexto}>
-                        <Text>Teste</Text>
-                        <Text>12/12/2000</Text>
-                        <Text>blablablablabla</Text>
+                        <Text>{this.props.nome}</Text>
+                        <Text>{this.props.valor}</Text>
                     </View>
                 </View>
             </TouchableHighlight>

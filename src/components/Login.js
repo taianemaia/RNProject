@@ -28,14 +28,14 @@ export default class Login extends Component {
             <TextInput
               style={styles.input}
               onChangeText={(login) => (false)}
-              value={this.props.login}
+              value={"consultor@unilever.com"}
               placeholder='Email'
               placeholderTextColor='#D0D0D0'
             />
             <TextInput
               style={styles.input}
               onChangeText={(senha) => ( false)}
-              value={this.props.senha}
+              value={"123456"}
               secureTextEntry={true}
               placeholder='Senha'
               placeholderTextColor='#D0D0D0'
